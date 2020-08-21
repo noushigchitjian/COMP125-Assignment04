@@ -199,7 +199,7 @@
                 alert(`There is Not Enough Money To Bet`);
                 Main();
             }
-               //this will let the player to continue playing because he/she has enough Money
+                //this will let the player to continue playing because he/she has enough Money
             else if(Number(betLabel.text) <= Number(creditLabel.text))
             {   
 
@@ -210,6 +210,41 @@
             leftReel.image = assets.getResult(reels[0]) as HTMLImageElement;
             middleReel.image = assets.getResult(reels[1]) as HTMLImageElement;
             rightReel.image = assets.getResult(reels[2]) as HTMLImageElement;
+            Winnings();                   
+            }})
+
+              
+            
+
+        bet1Button.on("click", ()=>
+        {
+            console.log("bet1Button Clicked");
+            betLabel.setText((Number(betLabel.text)+1).toString());
+        });
+
+        bet10Button.on("click", ()=>
+        {
+            console.log("bet10Button Clicked");
+            betLabel.setText((Number(betLabel.text)+10).toString());
+        });
+
+        bet100Button.on("click", ()=>
+        {
+            console.log("bet100Button Clicked");
+            betLabel.setText((Number(betLabel.text)+100).toString());
+        });
+
+        betMaxButton.on("click", ()=>
+        {
+            console.log("betMaxButton Clicked");
+            betLabel.setText(Number(creditLabel.text).toString());
+        });
+    }
+    
+    
+    function Winnings()
+    {
+        let reels = Reels();
 
             let grapesC = 0;
             let bananasC = 0;
@@ -223,25 +258,25 @@
 
                 for(let i=0;i<reels.length;i++)
                 {                     
-                    if(reels[i]=="grapes")
+                    if(reels[i]=="grape")
                     grapesC++;
-                    if(reels[i]=="bananas")
+                    if(reels[i]=="banana")
                     bananasC++;
-                    if(reels[i]=="oranges")
+                    if(reels[i]=="orange")
                     orangesC++;
-                    if(reels[i]=="cherries")
+                    if(reels[i]=="cherry")
                     cherriesC++;
-                    if(reels[i]=="bars")
+                    if(reels[i]=="bar")
                     barsC++;
-                    if(reels[i]=="bells")
+                    if(reels[i]=="bell")
                     bellsC++;
-                    if(reels[i]=="sevens")
+                    if(reels[i]=="seven")
                     sevensC++;
-                    if(reels[i]=="blanks")
-                    blanksC++;
-                    
+                    if(reels[i]=="blank")
+                    blanksC++;                    
                 }  
-                console.log(`The number of {grapes, bananas, oranges, cherries, bars, bells, sevens, blanks \n +
+                
+                console.log(`The number of {grape, banana, orange, cherrie, bar, bell, seven, blank \n +
                     ${grapesC},${bananasC},${orangesC},${cherriesC},${barsC},${bellsC},${sevensC},${blanksC}`)
 
                 
