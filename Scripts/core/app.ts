@@ -1,3 +1,7 @@
+// Author : NOUSHIG CHITJIAN
+// Student ID : 301117936
+// Date : AUG.20,2020
+// Descrption : app.ts ^_^
 (function(){
     // Function scoped Variables
     let stage: createjs.Stage;
@@ -16,6 +20,7 @@
     let middleReel: Core.GameObject;
     let rightReel: Core.GameObject;
     let betLine: Core.GameObject;
+    let addRightReel: Core.GameObject;
 
     // symbol tallies
     let grapes = 0;
@@ -92,10 +97,10 @@
     /* When this function is called it determines the betLine results.
     e.g. Bar - Orange - Banana */
     function Reels():string[] {
-        var betLine = [" ", " ", " "];
-        var outCome = [0, 0, 0];
+        let betLine = [" ", " ", " "];
+        let outCome = [0, 0, 0];
 
-        for (var spin = 0; spin < 3; spin++) {
+        for (let spin = 0; spin < 3; spin++) {
             outCome[spin] = Math.floor((Math.random() * 65) + 1);
             switch (outCome[spin]) {
                 case checkRange(outCome[spin], 1, 27):  // 41.5% probability
@@ -140,7 +145,6 @@
         // Slot Machine Background
         slotMachineBackground = new Core.GameObject("background", Config.Screen.CENTER_X, Config.Screen.CENTER_Y, true );
         stage.addChild(slotMachineBackground);
-
         // Buttons
         spinButton = new UIObjects.Button("spinButton", Config.Screen.CENTER_X + 135, Config.Screen.CENTER_Y + 176, true);
         stage.addChild(spinButton);
@@ -174,19 +178,21 @@
         leftReel = new Core.GameObject("bell", Config.Screen.CENTER_X - 79, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(leftReel);
 
-        middleReel = new Core.GameObject("banana", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
+        middleReel = new Core.GameObject("cherry", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(middleReel);
 
         rightReel = new Core.GameObject("bar", Config.Screen.CENTER_X + 78, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(rightReel);
 
+        addRightReel = new Core.GameObject("banana", Config.Screen.CENTER_X + 75, Config.Screen.CENTER_Y - 12, true);
+        stage.addChild(addRightReel);
         // Bet Line
         betLine = new Core.GameObject("bet_line", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(betLine);
     }
-
+   
     function interfaceLogic():void
-    {
+    {   //logic function
         spinButton.on("click", ()=>
         {
             if(creditLabel.text == "0")
@@ -211,10 +217,10 @@
             middleReel.image = assets.getResult(reels[1]) as HTMLImageElement;
             rightReel.image = assets.getResult(reels[2]) as HTMLImageElement;
             Winnings();                   
-            }})
+            }
+        })
 
-              
-            
+             
 
         bet1Button.on("click", ()=>
         {
@@ -241,7 +247,7 @@
         });
     }
     
-    
+    //this function will determine the winnings
     function Winnings()
     {
         let reels = Reels();
@@ -258,101 +264,112 @@
 
                 for(let i=0;i<reels.length;i++)
                 {                     
-                    if(reels[i]=="grape")
-                    grapesC++;
-                    if(reels[i]=="banana")
-                    bananasC++;
-                    if(reels[i]=="orange")
-                    orangesC++;
-                    if(reels[i]=="cherry")
-                    cherriesC++;
-                    if(reels[i]=="bar")
-                    barsC++;
-                    if(reels[i]=="bell")
-                    bellsC++;
-                    if(reels[i]=="seven")
-                    sevensC++;
-                    if(reels[i]=="blank")
-                    blanksC++;                    
+                    if(reels[i]=="grapes")grapesC++;
+                    if(reels[i]=="banana")bananasC++;
+                    if(reels[i]=="orange")orangesC++;
+                    if(reels[i]=="cherry")cherriesC++;
+                    if(reels[i]=="bar")barsC++;
+                    if(reels[i]=="bell")bellsC++;
+                    if(reels[i]=="seven")sevensC++;
+                    if(reels[i]=="blank")blanksC++;                    
                 }  
                 
-                console.log(`The number of {grape, banana, orange, cherrie, bar, bell, seven, blank \n +
-                    ${grapesC},${bananasC},${orangesC},${cherriesC},${barsC},${bellsC},${sevensC},${blanksC}`)
+                // to see the number and tyoe of the shapes on the betline
+                console.log(`The number of {grapes, banana, orange, cherry, bar, bell, seven, blank \n ${grapesC},${bananasC},${orangesC},${cherriesC},${barsC},${bellsC},${sevensC},${blanksC},`)
 
                 
                     if(blanksC == 0){
-                        if (sevensC==1){
+                        
+                        if (sevensC==1){//wins *15 of the bet amount 
                             winningsLabel.setText((Number(betLabel.text)*15).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         }
+                        
+                        else if(cherriesC==1)
+                        {//wins *7 of the bet amount 
+                            winningsLabel.setText((Number(betLabel.text)*7).toString());
+                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                        }
+                    
+                        else if(barsC==1)
+                        {//wins *5 of the bet amount
+                            winningsLabel.setText((Number(betLabel.text)*5).toString());
+                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                        }
+                        
                         else if(grapesC==2)
-                        {
+                        {//wins *3 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*3).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
+                        
                         else if(bananasC==2)
-                        {
+                        {//wins *6 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*6).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
+                        
                         else if(orangesC==2)
-                        {
+                        {//wins *9 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*9).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
+                        }
+                         
                         else if(cherriesC==2)
-                        {
+                        {//wins *12 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*12).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
+                        
                         else if(barsC==2)
-                        {
+                        {//wins *15 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*15).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
+                        }
+                        
                         else if(bellsC==2)
-                        {
+                        {//wins *20 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*20).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         }
                         else if(sevensC==2)
-                        {
+                        {//wins *30 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*30).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(grapesC==3)
-                        {
+                        {//wins *10 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*10).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
          
                         } 
                         else if(bananasC==3)
-                        {
+                        {//wins *20 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*20).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(orangesC==3)
-                        {
+                        {//wins *30 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*30).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(cherriesC==3)
-                        {
+                        {//wins *40 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*40).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(barsC==3)
-                        {
+                        {//wins *50 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*50).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(bellsC==3)
-                        {
+                        {//wins *75 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*75).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(sevensC==3)
-                        {
+                        {//wins *100 of the bet amount
                             winningsLabel.setText((Number(betLabel.text)*100).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                             confirm(`You Won The Jackpot! \n+
@@ -363,29 +380,7 @@
                     creditLabel.setText((Number(creditLabel.text)-Number(betLabel.text)).toString());
                 }
             }
-        })    
-                                                             
-                                        
-                                       
-            
-
-        bet1Button.on("click", ()=>{
-            console.log("bet1Button Button Clicked");
-        });
-
-        bet10Button.on("click", ()=>{
-            console.log("bet10Button Button Clicked");
-        });
-
-        bet100Button.on("click", ()=>{
-            console.log("bet100Button Button Clicked");
-        });
-
-        betMaxButton.on("click", ()=>{
-            console.log("betMaxButton Button Clicked");
-        });
-    }
-
+        
     // app logic goes here
     function Main():void
     {
