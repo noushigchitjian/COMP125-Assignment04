@@ -18,8 +18,7 @@
     let betLabel;
     let leftReel;
     let middleReel;
-    let rightReel;
-    let addRightReel;
+    let rightReel;    
     let betLine;
     // symbol tallies
     let grapes = 0;
@@ -29,7 +28,7 @@
     let bars = 0;
     let bells = 0;
     let sevens = 0;
-    let blanks = 0;
+    let blanks = 0;        
     let manifest = [
         { id: "background", src: "./Assets/images/background.png" },
         { id: "banana", src: "./Assets/images/banana.gif" },
@@ -153,9 +152,7 @@
         middleReel = new Core.GameObject("cherry", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(middleReel);
         rightReel = new Core.GameObject("bar", Config.Screen.CENTER_X + 78, Config.Screen.CENTER_Y - 12, true);
-        stage.addChild(rightReel);
-        addRightReel = new Core.GameObject("banana", Config.Screen.CENTER_X + 77, Config.Screen.CENTER_Y - 12, true);
-        stage.addChild(addRightReel);
+        stage.addChild(rightReel);       
         // Bet Line
         betLine = new Core.GameObject("bet_line", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(betLine);
@@ -208,6 +205,12 @@
         });
     }
 
+    function winnerMessage() {
+        
+        console.log(`You won: ${winningsLabel.text} and Your left credits: ${creditLabel.text}`);
+        
+    }
+
 
     function Winnings()
     {   //this function will determine the winnings
@@ -238,88 +241,111 @@
                 console.log(`The number of {grapes, banana, orange, cherry, bar, bell, seven, blank \n ${grapesC},${bananasC},${orangesC},${cherriesC},${barsC},${bellsC},${sevensC},${blanksC},`)
 
                 
-                    if(blanksC == 0){
-                        if (sevensC==1){
-                            winningsLabel.setText((Number(betLabel.text)*15).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        }
-                        else if(grapesC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*3).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(bananasC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*6).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(orangesC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*9).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(cherriesC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*12).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(barsC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*15).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(bellsC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*20).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        }
-                        else if(sevensC==2)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*30).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(grapesC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*10).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-         
-                        } 
-                        else if(bananasC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*20).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(orangesC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*30).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(cherriesC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*40).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(barsC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*50).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(bellsC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*75).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                        } 
-                        else if(sevensC==3)
-                        {
-                            winningsLabel.setText((Number(betLabel.text)*100).toString());
-                            creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
-                            confirm(`You Won The Jackpot! \n+
-                             Your JACKPOT Total win is : ${jackPotLabel.text} and Your WINNING Total is : ${winningsLabel.text}}`)
-                        }
+                if(blanksC == 0){
+                        
+                    if (sevensC==1){//wins *15 of the bet amount 
+                        winningsLabel.setText((Number(betLabel.text)*15).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                     }
-                else{
-                    creditLabel.setText((Number(creditLabel.text)-Number(betLabel.text)).toString());
+                    
+                    else if(cherriesC==1)
+                    {//wins *7 of the bet amount 
+                        winningsLabel.setText((Number(betLabel.text)*7).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    }
+                
+                    else if(barsC==1)
+                    {//wins *5 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*5).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    }
+                    
+                    else if(grapesC==2)
+                    {//wins *3 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*3).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    
+                    else if(bananasC==2)
+                    {//wins *6 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*6).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    
+                    else if(orangesC==2)
+                    {//wins *9 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*9).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    }
+                     
+                    else if(cherriesC==2)
+                    {//wins *12 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*12).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    
+                    else if(barsC==2)
+                    {//wins *15 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*15).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    }
+                    
+                    else if(bellsC==2)
+                    {//wins *20 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*20).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    }
+                    else if(sevensC==2)
+                    {//wins *30 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*30).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(grapesC==3)
+                    {//wins *10 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*10).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+     
+                    } 
+                    else if(bananasC==3)
+                    {//wins *20 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*20).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(orangesC==3)
+                    {//wins *30 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*30).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(cherriesC==3)
+                    {//wins *40 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*40).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(barsC==3)
+                    {//wins *50 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*50).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(bellsC==3)
+                    {//wins *75 of the bet amount
+                        winningsLabel.setText((Number(betLabel.text)*75).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                    } 
+                    else if(sevensC==3)
+                    {
+                        winningsLabel.setText((Number(betLabel.text)*100).toString());
+                        creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
+                        confirm(`You Won The Jackpot! \n+
+                         Your JACKPOT Total win is : ${jackPotLabel.text} and Your WINNING Total is : ${winningsLabel.text}`);
+                         jackPotLabel.setText("10000000");
+                    }
+                    winnerMessage();
                 }
+            else{
+                creditLabel.setText((Number(creditLabel.text)-Number(betLabel.text)).toString());
+                    
+                }
+               
             }
     // app logic goes here
     function Main() {

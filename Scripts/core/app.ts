@@ -20,7 +20,7 @@
     let middleReel: Core.GameObject;
     let rightReel: Core.GameObject;
     let betLine: Core.GameObject;
-    let addRightReel: Core.GameObject;
+    
 
     // symbol tallies
     let grapes = 0;
@@ -184,8 +184,7 @@
         rightReel = new Core.GameObject("bar", Config.Screen.CENTER_X + 78, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(rightReel);
 
-        addRightReel = new Core.GameObject("banana", Config.Screen.CENTER_X + 75, Config.Screen.CENTER_Y - 12, true);
-        stage.addChild(addRightReel);
+       
         // Bet Line
         betLine = new Core.GameObject("bet_line", Config.Screen.CENTER_X, Config.Screen.CENTER_Y - 12, true);
         stage.addChild(betLine);
@@ -245,6 +244,11 @@
             console.log("betMaxButton Clicked");
             betLabel.setText(Number(creditLabel.text).toString());
         });
+    }
+    function winnerMessage() {
+        
+        console.log(`You won: ${winningsLabel.text} and Your left credits: ${creditLabel.text}`);
+        
     }
     
     //this function will determine the winnings
@@ -369,12 +373,14 @@
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                         } 
                         else if(sevensC==3)
-                        {//wins *100 of the bet amount
+                        {
                             winningsLabel.setText((Number(betLabel.text)*100).toString());
                             creditLabel.setText((Number(creditLabel.text)+Number(winningsLabel.text)).toString());
                             confirm(`You Won The Jackpot! \n+
-                             Your JACKPOT Total win is : ${jackPotLabel.text} and Your WINNING Total is : ${winningsLabel.text}}`)
+                             Your JACKPOT Total win is : ${jackPotLabel.text} and Your WINNING Total is : ${winningsLabel.text}`);
+                             jackPotLabel.setText("10000000");
                         }
+                        winnerMessage();
                     }
                 else{
                     creditLabel.setText((Number(creditLabel.text)-Number(betLabel.text)).toString());
